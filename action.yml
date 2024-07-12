@@ -12,6 +12,9 @@ inputs:
   api-docs-dir:
     description: Parent directory to use for API docs
     required: true
+  workspace-dir:
+    description: Optional directory to run the generation script from
+    required: false
 
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
@@ -55,8 +58,8 @@ runs:
         GH_ACTION_REPOSITORY: ${{ github.action_repository || github.repository }}
         # Required to pass permissions to fetch OpenAPI spec files from Git branches
         GH_TOKEN: ${{ github.token }}
-        # Used to return to caller's repository directory
-        WORKSPACE_DIR: ${{ github.workspace }}
+        # Used to return to caller's repository directory (relative workspace-dir is appended if provided)
+        WORKSPACE_DIR: ${{ join([github.workspace, inputs.workspace-dir], '/') }}
     - name: Set up GitHub Pages
       uses: actions/configure-pages@v5
     - name: Upload API docs to GitHub Pages
