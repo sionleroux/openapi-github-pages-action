@@ -59,7 +59,7 @@ runs:
         # Required to pass permissions to fetch OpenAPI spec files from Git branches
         GH_TOKEN: ${{ github.token }}
         # Used to return to caller's repository directory (relative workspace-dir is appended if provided)
-        WORKSPACE_DIR: ${{ join([github.workspace, inputs.workspace-dir], '/') }}
+        WORKSPACE_DIR: ${{ format('{0}/{1}', github.workspace, inputs.workspace-dir) }}
     - name: Set up GitHub Pages
       uses: actions/configure-pages@v5
     - name: Upload API docs to GitHub Pages
