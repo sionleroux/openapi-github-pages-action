@@ -61,7 +61,7 @@ runs:
         # Used to return to caller's repository directory
         WORKSPACE_DIR: ${{ github.workspace }}
         # Used for multi-file API specs, run the script from this directory to correctly resolve relative paths in references
-        SRC_DIR: ${{ inputs.src-dir) }}
+        SRC_DIR: ${{ inputs.src-dir }}
     - name: Set up GitHub Pages
       uses: actions/configure-pages@v5
     - name: Upload API docs to GitHub Pages
