@@ -58,8 +58,10 @@ fi
 
 # Go to the source directory if provided
 if [ -n "$SRC_DIR" ]; then
+    pwd
     echo "Changing directory to SRC_DIR: $SRC_DIR"
     cd "${SRC_DIR}"
+    pwd
 fi
 
 # Validate OpenAPI JSON spec exists
