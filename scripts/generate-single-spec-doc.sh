@@ -62,6 +62,8 @@ if [ -n "$SRC_DIR" ]; then
     echo "Changing directory to SRC_DIR: $SRC_DIR"
     cd "${SRC_DIR}"
     pwd
+else
+    echo "No SRC_DIR provided, using WORKSPACE_DIR: $WORKSPACE_DIR"
 fi
 
 # Validate OpenAPI JSON spec exists
