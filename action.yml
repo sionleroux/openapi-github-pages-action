@@ -12,7 +12,7 @@ inputs:
   api-docs-dir:
     description: Parent directory to use for API docs
     required: true
-  workspace-dir:
+  src-dir:
     description: Optional directory to run the generation script from
     required: false
 
@@ -58,8 +58,10 @@ runs:
         GH_ACTION_REPOSITORY: ${{ github.action_repository || github.repository }}
         # Required to pass permissions to fetch OpenAPI spec files from Git branches
         GH_TOKEN: ${{ github.token }}
-        # Used to return to caller's repository directory (relative workspace-dir is appended if provided)
-        WORKSPACE_DIR: ${{ format('{0}/{1}', github.workspace, inputs.workspace-dir) }}
+        # Used to return to caller's repository directory
+        WORKSPACE_DIR: ${{ github.workspace }}
+        # Used for multi-file API specs, run the script from this directory to correctly resolve relative paths in references
+        SRC_DIR: ${{ inputs.src-dir) }}
     - name: Set up GitHub Pages
       uses: actions/configure-pages@v5
     - name: Upload API docs to GitHub Pages
