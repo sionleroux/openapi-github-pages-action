@@ -56,6 +56,12 @@ else
         $apiSpecFetchUri > $openApiJsonFilepath
 fi
 
+# Go to the source directory if provided
+if [ -n "$SRC_DIR" ]; then
+    echo "Changing directory to SRC_DIR: $SRC_DIR"
+    cd "${SRC_DIR}"
+fi
+
 # Validate OpenAPI JSON spec exists
 if [ ! -f "$openApiJsonFilepath" ]; then
     echo "Failed to generate API documentation since API spec was not found at $openApiJsonFilepath"
@@ -76,10 +82,6 @@ fullyQualifiedApiFilepath="$WORKSPACE_DIR/$API_DOCS_DIR/$apiDocFilepath"
 apiFileDir=$(dirname $fullyQualifiedApiFilepath)
 mkdir -p $apiFileDir
 echo "Generating ReDoc API docs at $fullyQualifiedApiFilepath"
-if [ -n "$SRC_DIR" ]; then
-    echo "Changing directory to SRC_DIR: $SRC_DIR"
-    cd "${SRC_DIR}"
-fi
 npx @redocly/cli build-docs $openApiYamlFilepath -o $fullyQualifiedApiFilepath
 
 if [ ! -f "$fullyQualifiedApiFilepath" ]; then
